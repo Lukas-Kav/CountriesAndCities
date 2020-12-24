@@ -2,8 +2,8 @@
 
 include '../autoload.php';
 
-$CitiesContoller = new CitiesController();
 $id = $_GET['countryId'];
+$CitiesContoller = new CitiesController();
 $results = $CitiesContoller->returnCitiesByCountry($id);
 
 ?>
@@ -20,12 +20,18 @@ $results = $CitiesContoller->returnCitiesByCountry($id);
       <td><?php echo $r['Name']; ?></td>
       <td><?php echo $r['Population']; ?></td>
       <td><a href="CityEdit.php?edit=<?php echo $r['ID'] ?>">Edit</a>
-      <a href="?delete=<?php echo $r['ID'] ?>">Delete</a> <?php echo "Neveikia Delete" ?></td>
+      <a href="?countryId=<?php echo $id ?>&delete=<?php echo $r['ID'] ?>">Delete</a></td>
     </tr>
     <?php endforeach; ?>
     </table>
     <a href="NewCity.php?countryId=<?php echo $id ?>">Create New</a><br><br>
     <a href="CountriesView.php">Back</a>
     </body>
-
 <?php
+if(isset($_GET['delete']))
+{
+  $DeleteId = $_GET['delete'];
+  $CitiesContoller->deleteCity($DeleteId);
+  header("Refresh:0; url=CitiesView.php?countryId=$id");
+}
+?>

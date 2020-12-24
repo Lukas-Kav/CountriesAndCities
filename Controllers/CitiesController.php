@@ -38,5 +38,10 @@ class CitiesController extends Cities
     }
   }
 
+  function deleteCity($id)
+  {
+    return $this->removeCity($id);
+  }
+
 
 }

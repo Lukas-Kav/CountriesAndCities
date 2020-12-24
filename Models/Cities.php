@@ -35,4 +35,11 @@ class Cities extends DB
     $stmt->execute();
   }
 
+  protected function removeCity($id)
+  {
+    $sql = "DELETE FROM cities WHERE ID = $id";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+  }
+
 }
