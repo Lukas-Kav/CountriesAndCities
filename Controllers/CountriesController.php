@@ -29,9 +29,9 @@ class CountriesController extends Countries
     }
   }
 
-  function returnCountry($id)
+  function returnCountry($id, $SortType)
   {
-    return $this->getCountries($id);
+    return $this->getCountries($id, $SortType);
   }
 
   function returnCountryByName($Name)

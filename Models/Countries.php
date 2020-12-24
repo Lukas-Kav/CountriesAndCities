@@ -3,14 +3,27 @@
 class Countries extends DB
 {
 
-  protected function getCountries($id)
+  protected function getCountries($id, $SortType)
   {
+    $st = "";
+    if(!empty($SortType))
+    {
+      if($SortType == 'ascending')
+      {
+        $st = " ORDER BY Name ASC";
+      }
+
+      if($SortType == 'descending')
+      {
+        $st = " ORDER BY Name DESC";
+      }
+    }
     $wh = "";
     if(!empty($id))
     {
       $wh = " WHERE ID = $id";
     }
-    $sql = "SELECT * FROM countries".$wh;
+    $sql = "SELECT * FROM countries".$wh.$st;
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();

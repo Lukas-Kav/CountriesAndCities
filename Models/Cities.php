@@ -3,9 +3,31 @@
 class Cities extends DB
 {
 
-  protected function getCities($CountryId)
+  protected function getCities($CountryId, $SortType)
   {
-    $sql = "SELECT * FROM cities WHERE CountryID = $CountryId";
+    $st = "";
+    if(!empty($SortType))
+    {
+      if($SortType == 'ascending')
+      {
+        $st = " ORDER BY Name ASC";
+      }
+
+      if($SortType == 'descending')
+      {
+        $st = " ORDER BY Name DESC";
+      }
+    }
+    $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st;
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    return $results;
+  }
+
+  protected function getCitiesByName($Name, $CountryId)
+  {
+    $sql = "SELECT * FROM cities WHERE Name = '$Name' AND CountryID = $CountryId";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();

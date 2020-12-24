@@ -4,11 +4,37 @@ include '../autoload.php';
 
 $id = $_GET['countryId'];
 $CitiesContoller = new CitiesController();
-$results = $CitiesContoller->returnCitiesByCountry($id);
+if(isset($_POST['submit']) and !isset($_POST['showAll']))
+{
+  $Name = $_POST['cityToFind'];
+  $results = $CitiesContoller->returnCityByName($Name, $id);
+}
+elseif(isset($_POST['sort']))
+{
+  $SortType = $_POST['sortingType'];
+  $results = $CitiesContoller->returnCitiesByCountry($id, $SortType);
+}
+else
+{
+  $results = $CitiesContoller->returnCitiesByCountry($id, '');
+}
 
 ?>
     <body>
     <h2>Cities</h2>
+    <form method="POST">
+            <div class="form-item">
+                <label>Search: </label>
+                <input type="text" name="cityToFind">
+                <button class="btn" name="submit" type="submit">Submit</button>
+                <button class="btn" name="showAll" type="submit">Show All</button>
+                <select name="sortingType">
+                  <option value="ascending">Sort ascending by name</option>
+                  <option value="descending">Sort descending by name</option>
+                </select>
+                <button class="btn" name="sort" type="submit">Sort</button>
+            </div>
+    </form>
     <table style="width:25%">
       <tr>
         <th style="text-align:left">Name</th>
@@ -24,6 +50,7 @@ $results = $CitiesContoller->returnCitiesByCountry($id);
     </tr>
     <?php endforeach; ?>
     </table>
+    <br><br>
     <a href="NewCity.php?countryId=<?php echo $id ?>">Create New</a><br><br>
     <a href="CountriesView.php">Back</a>
     </body>

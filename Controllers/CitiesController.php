@@ -2,9 +2,14 @@
 
 class CitiesController extends Cities
 {
-  function returnCitiesByCountry($CountryId)
+  function returnCitiesByCountry($CountryId, $SortType)
   {
-    return $this->getCities($CountryId);
+    return $this->getCities($CountryId, $SortType);
+  }
+
+  function returnCityByName($Name, $CountryId)
+  {
+    return $this->getCitiesByName($Name, $CountryId);
   }
 
   function returnCity($id)
