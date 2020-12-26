@@ -43,16 +43,17 @@ class Cities extends DB
     return $results;
   }
 
-  protected function setCity($name, $population, $country)
+  protected function setCity($dataArray)
   {
-    $sql = "INSERT INTO cities(Name, Population, CountryID) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO cities(Name, Population, AreaSize, PostCode, AddedOn, CountryID) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->connect()->prepare($sql);
-    $stmt->execute([$name, $population, $country]);
+    $stmt->execute($dataArray);
   }
 
-  protected function updateCity($name, $population, $id)
+  protected function updateCity($dataArray, $id)
   {
-    $sql = "UPDATE cities SET Name = '$name', Population = '$population' WHERE ID = $id";
+    $sql = "UPDATE cities SET Name = '$dataArray[0]', Population = '$dataArray[1]', AreaSize = '$dataArray[2]',
+    PostCode = '$dataArray[3]', AddedOn = '$dataArray[4]' WHERE ID = $id";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
   }

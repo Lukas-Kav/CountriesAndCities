@@ -15,6 +15,14 @@ $CountriesContoller = new CountriesController();
               <label>Size: </label>
               <input type="text" name="size"><br><br>
         </div>
+        <div class="form-item">
+              <label>Population: </label>
+              <input type="text" name="population"><br><br>
+        </div>
+        <div class="form-item">
+              <label>Phone Code: </label>
+              <input type="text" name="phonecode"><br><br>
+        </div>
         <button class="btn" name="submit" type="submit">Submit</button>
     </form>
 
@@ -22,7 +30,8 @@ $CountriesContoller = new CountriesController();
 
         if(isset($_POST['submit']))
         {
-            $mess = $CountriesContoller->addCountry($_POST['title'], $_POST['size']);
+            $Date = date("Y-m-d");
+            $mess = $CountriesContoller->addCountry([$_POST['title'], $_POST['size'], $_POST['population'], $_POST['phonecode'], $Date]);
             echo $mess;
         }
 

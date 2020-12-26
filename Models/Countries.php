@@ -39,16 +39,17 @@ class Countries extends DB
     return $results;
   }
 
-  protected function setCountry($name, $size)
+  protected function setCountry($dataArray)
   {
-    $sql = "INSERT INTO countries(Name, Size) VALUES (?, ?)";
+    $sql = "INSERT INTO countries(Name, Size, Population, PhoneCode, AddedOn) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->connect()->prepare($sql);
-    $stmt->execute([$name, $size]);
+    $stmt->execute($dataArray);
   }
 
-  protected function updateCountry($name, $size, $id)
+  protected function updateCountry($dataArray, $id)
   {
-    $sql = "UPDATE countries SET Name = '$name', Size = '$size' WHERE ID = $id";
+    $sql = "UPDATE countries SET Name = '$dataArray[0]', Size = '$dataArray[1]',
+    Population= '$dataArray[2]', PhoneCode= '$dataArray[3]', AddedOn= '$dataArray[4]' WHERE ID = $id";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
   }

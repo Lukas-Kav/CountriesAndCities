@@ -3,7 +3,7 @@
 include '../autoload.php';
 $CountriesContoller = new CountriesController();
 $id = $_GET['edit'];
-$results = $CountriesContoller->returnCountry($id)[0];
+$results = $CountriesContoller->returnCountry($id, '')[0];
 
  ?>
 
@@ -17,6 +17,14 @@ $results = $CountriesContoller->returnCountry($id)[0];
               <label>Size: </label>
               <input type="text" name="size" value=<?php echo $results['Size']; ?>><br><br>
         </div>
+        <div class="form-item">
+              <label>Population: </label>
+              <input type="text" name="population" value=<?php echo $results['Population']; ?>><br><br>
+        </div>
+        <div class="form-item">
+              <label>Phone Code: </label>
+              <input type="text" name="phoneCode" value=<?php echo $results['PhoneCode']; ?>><br><br>
+        </div>
         <button class="btn" name="submit" type="submit">Submit</button>
     </form>
 
@@ -24,7 +32,8 @@ $results = $CountriesContoller->returnCountry($id)[0];
 
         if(isset($_POST['submit']))
         {
-            $mess = $CountriesContoller->renewCountry($_POST['title'], $_POST['size'], $id);
+            $Date = date("Y-m-d");
+            $mess = $CountriesContoller->renewCountry([$_POST['title'], $_POST['size'], $_POST['population'], $_POST['phoneCode'], $Date], $id);
             echo $mess;
         }
 

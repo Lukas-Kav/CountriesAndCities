@@ -16,6 +16,14 @@ $CountryId = $_GET['countryId'];
               <label>Population: </label>
               <input type="text" name="population"><br><br>
         </div>
+        <div class="form-item">
+              <label>Area Size: </label>
+              <input type="text" name="AreaSize"><br><br>
+        </div>
+        <div class="form-item">
+              <label>Post Code: </label>
+              <input type="text" name="PostCode"><br><br>
+        </div>
         <button class="btn" name="submit" type="submit">Submit</button>
     </form>
 
@@ -23,7 +31,8 @@ $CountryId = $_GET['countryId'];
 
         if(isset($_POST['submit']))
         {
-            $mess = $CitiesContoller->addCity($_POST['title'], $_POST['population'], $CountryId);
+            $Date = date("Y-m-d");
+            $mess = $CitiesContoller->addCity([$_POST['title'], $_POST['population'], $_POST['AreaSize'], $_POST['PostCode'], $Date, $CountryId]);
             echo $mess;
         }
 

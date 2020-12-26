@@ -16,6 +16,14 @@ $results = $CitiesContoller->returnCity($Id)[0];
               <label>Population: </label>
               <input type="text" name="population" value=<?php echo $results['Population']; ?>><br><br>
         </div>
+        <div class="form-item">
+              <label>Area Size: </label>
+              <input type="text" name="areasize" value=<?php echo $results['AreaSize']; ?>><br><br>
+        </div>
+        <div class="form-item">
+              <label>Post Code: </label>
+              <input type="text" name="postcode" value=<?php echo $results['PostCode']; ?>><br><br>
+        </div>
         <button class="btn" name="submit" type="submit">Submit</button>
 </form>
 
@@ -23,7 +31,8 @@ $results = $CitiesContoller->returnCity($Id)[0];
 
         if(isset($_POST['submit']))
         {
-            $mess = $CitiesContoller->renewCity($_POST['title'], $_POST['population'], $Id);
+            $Date = date("Y-m-d");
+            $mess = $CitiesContoller->renewCity([$_POST['title'], $_POST['population'], $_POST['areasize'], $_POST['postcode'], $Date], $Id);
             echo $mess;
         }
 

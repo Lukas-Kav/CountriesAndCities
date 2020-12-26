@@ -38,12 +38,16 @@ else
       <tr>
         <th style="text-align:left">Name</th>
         <th style="text-align:left">Size</th>
+        <th style="text-align:left">Population</th>
+        <th style="text-align:left">PhoneCode</th>
         <th style="text-align:left">Actions</th>
       </tr>
     <?php foreach ($results as $r):?>
     <tr>
       <td><a href="CitiesView.php?countryId=<?php echo $r['ID'] ?>"><?php echo $r['Name']; ?></a></td>
       <td><?php echo $r['Size']; ?></td>
+      <td><?php echo $r['Population']; ?></td>
+      <td><?php echo $r['PhoneCode']; ?></td>
       <td><a href="CountryEdit.php?edit=<?php echo $r['ID'] ?>">Edit</a>
       <a href="?delete=<?php echo $r['ID'] ?>">Delete</a></td>
     </tr>

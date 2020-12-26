@@ -17,28 +17,28 @@ class CitiesController extends Cities
     return $this->getCity($id);
   }
 
-  function addCity($Name, $Population, $Country)
+  function addCity($DataArray)
   {
-    if(empty($Name) or empty($Population))
+    if(empty($DataArray[0]))
     {
       return "Don't leave empty fields";
     }
     else
     {
-      $this->setCity($Name, $Population, $Country);
+      $this->setCity($DataArray);
       return "Added";
     }
   }
 
-  function renewCity($Name, $Population, $id)
+  function renewCity($DataArray, $id)
   {
-    if(empty($Name) or empty($Population))
+    if(empty($DataArray[0]))
     {
       return "Don't leave empty fields";
     }
     else
     {
-      $this->updateCity($Name, $Population, $id);
+      $this->updateCity($DataArray, $id);
       return "Updated";
     }
   }
