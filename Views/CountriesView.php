@@ -13,6 +13,12 @@ elseif(isset($_POST['sort']))
   $SortType = $_POST['sortingType'];
   $results = $CountriesContoller->returnCountry('', $SortType);
 }
+elseif(isset($_POST['byDate']))
+{
+  $DateStart = $_POST['start'];
+  $DateEnd = $_POST['end'];
+  $results = $CountriesContoller->returnCountryByDate($DateStart, $DateEnd);
+}
 else
 {
   $results = $CountriesContoller->returnCountry('', '');
@@ -32,6 +38,9 @@ else
                   <option value="descending">Sort descending by name</option>
                 </select>
                 <button class="btn" name="sort" type="submit">Sort</button>
+                <input type="date" name="start" value=<?php echo date("Y-m-d", strtotime("-1 week")); ?> />
+                <input type="date" name="end" value=<?php echo date('Y-m-d') ?> />
+                <button class="btn" name="byDate" type="submit">Find by Date</button>
             </div>
     </form>
     <table style="width:25%">

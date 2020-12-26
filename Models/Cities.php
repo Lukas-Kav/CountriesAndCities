@@ -34,6 +34,15 @@ class Cities extends DB
     return $results;
   }
 
+  protected function getCitiesByDate($dateStart, $dateEnd, $CountryId)
+  {
+    $sql = "SELECT * FROM cities WHERE AddedOn <= '$dateEnd' AND AddedOn >= '$dateStart' AND CountryID = $CountryId";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    return $results;
+  }
+
   protected function getCity($id)
   {
     $sql = "SELECT * FROM cities WHERE ID = $id";

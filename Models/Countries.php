@@ -39,6 +39,15 @@ class Countries extends DB
     return $results;
   }
 
+  protected function getCountriesByDate($start, $end)
+  {
+    $sql = "SELECT * FROM countries WHERE AddedOn <= '$end' AND AddedOn >= '$start'";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    return $results;
+  }
+
   protected function setCountry($dataArray)
   {
     $sql = "INSERT INTO countries(Name, Size, Population, PhoneCode, AddedOn) VALUES (?, ?, ?, ?, ?)";

@@ -39,6 +39,11 @@ class CountriesController extends Countries
     return $this->getCountriesByName($Name);
   }
 
+  function returnCountryByDate($Start, $End)
+  {
+    return $this->getCountriesByDate($Start, $End);
+  }
+
   function deleteCountry($id)
   {
     $this->removeCities($id);

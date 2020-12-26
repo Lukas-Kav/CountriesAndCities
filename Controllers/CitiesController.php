@@ -12,6 +12,11 @@ class CitiesController extends Cities
     return $this->getCitiesByName($Name, $CountryId);
   }
 
+  function returnCityByDate($DateStart, $DateEnd, $CountryId)
+  {
+    return $this->getCitiesByDate($DateStart, $DateEnd, $CountryId);
+  }
+
   function returnCity($id)
   {
     return $this->getCity($id);
