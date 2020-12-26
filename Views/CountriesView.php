@@ -25,31 +25,33 @@ else
 }
 
 ?>
+    <style>
+      <?php include '../style.css'; ?>
+    </style>
     <body>
-    <h2>Countries</h2>
+    <h1>Countries</h1>
     <form method="POST">
-            <div class="form-item">
-                <label>Search: </label>
-                <input type="text" name="countryToFind">
-                <button class="btn" name="submit" type="submit">Submit</button>
-                <button class="btn" name="showAll" type="submit">Show All</button>
+            <div>
+                <input type="text" name="countryToFind" placeholder="Search here">
+                <button name="submit" type="submit">Submit</button>
                 <select name="sortingType">
                   <option value="ascending">Sort ascending by name</option>
                   <option value="descending">Sort descending by name</option>
                 </select>
-                <button class="btn" name="sort" type="submit">Sort</button>
+                <button name="sort" type="submit">Sort</button>
                 <input type="date" name="start" value=<?php echo date("Y-m-d", strtotime("-1 week")); ?> />
                 <input type="date" name="end" value=<?php echo date('Y-m-d') ?> />
-                <button class="btn" name="byDate" type="submit">Find by Date</button>
+                <button name="byDate" type="submit">Find by Date</button>
+                <button name="showAll" type="submit">Show All</button>
             </div>
     </form>
-    <table style="width:25%">
+    <table>
       <tr>
-        <th style="text-align:left">Name</th>
-        <th style="text-align:left">Size</th>
-        <th style="text-align:left">Population</th>
-        <th style="text-align:left">PhoneCode</th>
-        <th style="text-align:left">Actions</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Population</th>
+        <th>PhoneCode</th>
+        <th>Actions</th>
       </tr>
     <?php foreach ($results as $r):?>
     <tr>
@@ -57,13 +59,12 @@ else
       <td><?php echo $r['Size']; ?></td>
       <td><?php echo $r['Population']; ?></td>
       <td><?php echo $r['PhoneCode']; ?></td>
-      <td><a href="CountryEdit.php?edit=<?php echo $r['ID'] ?>">Edit</a>
-      <a href="?delete=<?php echo $r['ID'] ?>">Delete</a></td>
+      <td><a href="CountryEdit.php?edit=<?php echo $r['ID'] ?>"><button>Edit</button></a>
+      <a href="?delete=<?php echo $r['ID'] ?>"><button>Delete</button></a></td>
     </tr>
     <?php endforeach; ?>
     </table>
-    <br><br>
-    <a href="NewCountry.php">Create New</a>
+    <a href="NewCountry.php"><button>Create New</button></a>
     </body>
 
 <?php

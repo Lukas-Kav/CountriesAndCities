@@ -4,26 +4,20 @@ include '../autoload.php';
 $CountriesContoller = new CountriesController();
 
  ?>
-
+<style>
+    <?php include '../style.css'; ?>
+</style>
 <h2>Create New Country</h2>
-<form method="POST">
-        <div class="form-item">
+<form class="editNnew-form" method="POST">
             <label>Name: </label>
-            <input type="text" name="title"><br><br>
-        </div>
-        <div class="form-item">
+            <input type="text" name="title"><br>
               <label>Size: </label>
-              <input type="text" name="size"><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="size"><br>
               <label>Population: </label>
-              <input type="text" name="population"><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="population"><br>
               <label>Phone Code: </label>
-              <input type="text" name="phonecode"><br><br>
-        </div>
-        <button class="btn" name="submit" type="submit">Submit</button>
+              <input type="text" name="phonecode"><br>
+        <button name="submit" type="submit">Submit</button>
     </form>
 
 <?php
@@ -38,4 +32,4 @@ $CountriesContoller = new CountriesController();
 ?>
 
 <br><br>
-<a href="CountriesView.php">Back</a>
+<a href="CountriesView.php"><button>Back</button></a>

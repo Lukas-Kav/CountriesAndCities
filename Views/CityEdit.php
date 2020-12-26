@@ -5,26 +5,20 @@ $CitiesContoller = new CitiesController();
 $Id = $_GET['edit'];
 $results = $CitiesContoller->returnCity($Id)[0];
  ?>
-
+<style>
+   <?php include '../style.css'; ?>
+</style>
 <h2>Update City</h2>
-<form method="POST">
-        <div class="form-item">
+<form class="editNnew-form" method="POST">
             <label>Name: </label>
-            <input type="text" name="title" value=<?php echo $results['Name']; ?>><br><br>
-        </div>
-        <div class="form-item">
+            <input type="text" name="title" value=<?php echo $results['Name']; ?>><br>
               <label>Population: </label>
-              <input type="text" name="population" value=<?php echo $results['Population']; ?>><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="population" value=<?php echo $results['Population']; ?>><br>
               <label>Area Size: </label>
-              <input type="text" name="areasize" value=<?php echo $results['AreaSize']; ?>><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="areasize" value=<?php echo $results['AreaSize']; ?>><br>
               <label>Post Code: </label>
-              <input type="text" name="postcode" value=<?php echo $results['PostCode']; ?>><br><br>
-        </div>
-        <button class="btn" name="submit" type="submit">Submit</button>
+              <input type="text" name="postcode" value=<?php echo $results['PostCode']; ?>><br>
+        <button name="submit" type="submit">Submit</button>
 </form>
 
 <?php
@@ -39,4 +33,4 @@ $results = $CitiesContoller->returnCity($Id)[0];
 ?>
 
 <br><br>
-<a href="CitiesView.php?countryId=<?php echo $results['CountryID'] ?>">Back</a>
+<a href="CitiesView.php?countryId=<?php echo $results['CountryID'] ?>"><button>Back</button></a>

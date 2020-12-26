@@ -26,25 +26,27 @@ else
 }
 
 ?>
+    <style>
+      <?php include '../style.css'; ?>
+    </style>
     <body>
-    <h2>Cities</h2>
+    <h1>Cities</h1>
     <form method="POST">
             <div class="form-item">
-                <label>Search: </label>
-                <input type="text" name="cityToFind">
-                <button class="btn" name="submit" type="submit">Submit</button>
-                <button class="btn" name="showAll" type="submit">Show All</button>
+                <input type="text" name="cityToFind" placeholder="Search here">
+                <button name="submit" type="submit">Submit</button>
                 <select name="sortingType">
                   <option value="ascending">Sort ascending by name</option>
                   <option value="descending">Sort descending by name</option>
                 </select>
-                <button class="btn" name="sort" type="submit">Sort</button>
+                <button name="sort" type="submit">Sort</button>
                 <input type="date" name="start" value=<?php echo date("Y-m-d", strtotime("-1 week")); ?> />
                 <input type="date" name="end" value=<?php echo date('Y-m-d') ?> />
-                <button class="btn" name="byDate" type="submit">Find by Date</button>
+                <button name="byDate" type="submit">Find by Date</button>
+                <button name="showAll" type="submit">Show All</button>
             </div>
     </form>
-    <table style="width:25%">
+    <table>
       <tr>
         <th style="text-align:left">Name</th>
         <th style="text-align:left">Population</th>
@@ -58,14 +60,14 @@ else
       <td><?php echo $r['Population']; ?></td>
       <td><?php echo $r['AreaSize']; ?></td>
       <td><?php echo $r['PostCode']; ?></td>
-      <td><a href="CityEdit.php?edit=<?php echo $r['ID'] ?>">Edit</a>
-      <a href="?countryId=<?php echo $id ?>&delete=<?php echo $r['ID'] ?>">Delete</a></td>
+      <td><a href="CityEdit.php?edit=<?php echo $r['ID'] ?>"><button>Edit</button></a>
+      <a href="?countryId=<?php echo $id ?>&delete=<?php echo $r['ID'] ?>"><button>Delete</button></a></td>
     </tr>
     <?php endforeach; ?>
     </table>
     <br><br>
-    <a href="NewCity.php?countryId=<?php echo $id ?>">Create New</a><br><br>
-    <a href="CountriesView.php">Back</a>
+    <a href="NewCity.php?countryId=<?php echo $id ?>"><button>Create New</button></a><br><br>
+    <a href="CountriesView.php"><button>Back</button></a>
     </body>
 <?php
 if(isset($_GET['delete']))

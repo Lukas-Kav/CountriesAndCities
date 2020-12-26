@@ -5,26 +5,20 @@ $CitiesContoller = new CitiesController();
 $CountryId = $_GET['countryId'];
 
  ?>
-
+<style>
+    <?php include '../style.css'; ?>
+</style>
 <h2>Create New City</h2>
-<form method="POST">
-        <div class="form-item">
+<form class="editNnew-form" method="POST">
             <label>Name: </label>
-            <input type="text" name="title"><br><br>
-        </div>
-        <div class="form-item">
+            <input type="text" name="title"><br>
               <label>Population: </label>
-              <input type="text" name="population"><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="population"><br>
               <label>Area Size: </label>
-              <input type="text" name="AreaSize"><br><br>
-        </div>
-        <div class="form-item">
+              <input type="text" name="AreaSize"><br>
               <label>Post Code: </label>
               <input type="text" name="PostCode"><br><br>
-        </div>
-        <button class="btn" name="submit" type="submit">Submit</button>
+        <button name="submit" type="submit">Submit</button>
     </form>
 
 <?php
@@ -39,4 +33,4 @@ $CountryId = $_GET['countryId'];
 ?>
 
 <br><br>
-<a href="CitiesView.php?countryId=<?php echo $CountryId ?>">Back</a>
+<a href="CitiesView.php?countryId=<?php echo $CountryId ?>"><button>Back</button></a>
