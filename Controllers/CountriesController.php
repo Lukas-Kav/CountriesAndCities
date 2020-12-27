@@ -3,29 +3,51 @@
 class CountriesController extends Countries
 {
 
-  function addCountry($DataArray)
+  private function verify($DataArray)
   {
-    if(empty($DataArray[0]))
+    if((in_array("", $DataArray)))
     {
       return "Don't leave empty fields";
     }
+    elseif (!is_numeric($DataArray[1]))
+    {
+      return "Size must be a number";
+    }
+    elseif (!is_numeric($DataArray[2]))
+    {
+      return "Population must be a number";
+    }
     else
     {
-      $this->setCountry($DataArray);
-      return "Added";
+      return True;
     }
   }
 
+  function addCountry($DataArray)
+  {
+      $Message = $this->verify($DataArray);
+      if($Message === True)
+      {
+      $this->setCountry($DataArray);
+      return "Added";
+      }
+      else
+      {
+        return $Message;
+      }
+    }
+
   function renewCountry($DataArray, $id)
   {
-    if(empty($DataArray[0]))
-    {
-      return "Don't leave empty fields";
-    }
-    else
+    $Message = $this->verify($DataArray);
+    if($Message === True)
     {
       $this->updateCountry($DataArray, $id);
       return "Updated";
+    }
+    else
+    {
+      return $Message;
     }
   }
 

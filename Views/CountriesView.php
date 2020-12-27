@@ -31,6 +31,13 @@ else
   $results = $CountriesContoller->returnCountry('', '', $page);
 }
 
+if(isset($_GET['delete']))
+{
+  $id = $_GET['delete'];
+  $CountriesContoller->deleteCountry($id);
+  header("Refresh:0; url=CountriesView.php?page=$page");
+}
+
 ?>
     <style>
       <?php include '../style.css'; ?>
@@ -46,7 +53,9 @@ else
                   <option value="descending">Sort descending by name</option>
                 </select>
                 <button name="sort" type="submit">Sort</button>
+                <label>From: </label>
                 <input type="date" name="start" value=<?php echo date("Y-m-d", strtotime("-1 week")); ?> />
+                <label>To: </label>
                 <input type="date" name="end" value=<?php echo date('Y-m-d') ?> />
                 <button name="byDate" type="submit">Find by Date</button>
                 <button name="showAll" type="submit">Show All</button>
@@ -68,7 +77,7 @@ else
       <td><?php echo $r['Population']; ?></td>
       <td><?php echo $r['PhoneCode']; ?></td>
       <td><a href="CountryEdit.php?edit=<?php echo $r['ID'] ?>"><button>Edit</button></a>
-      <a href="?delete=<?php echo $r['ID'] ?>"><button>Delete</button></a></td>
+      <a href="?page=<?php echo $page ?>&delete=<?php echo $r['ID'] ?>"><button>Delete</button></a></td>
     </tr>
     <?php endforeach; ?>
     </table>
@@ -82,14 +91,3 @@ else
     <br>
     <a href="NewCountry.php"><button>Create New</button></a>
     </body>
-
-<?php
-
-if(isset($_GET['delete']))
-{
-  $id = $_GET['delete'];
-  $CountriesContoller->deleteCountry($id);
-  header("Refresh:0; url=CountriesView.php");
-}
-
-?>

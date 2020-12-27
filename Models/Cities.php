@@ -18,8 +18,15 @@ class Cities extends DB
         $st = " ORDER BY Name DESC";
       }
     }
-    $startingPoint = ($page-1)*10;
-    $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st." LIMIT ".$startingPoint.", 10";
+    if(!empty($page))
+    {
+      $startingPoint = ($page-1)*10;
+      $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st." LIMIT ".$startingPoint.", 10";
+    }
+    else
+    {
+      $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st;
+    }
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();

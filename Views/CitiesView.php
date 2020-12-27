@@ -31,6 +31,13 @@ else
   $results = $CitiesContoller->returnCitiesByCountry($id, '', $page);
 }
 
+if(isset($_GET['delete']))
+{
+  $DeleteId = $_GET['delete'];
+  $CitiesContoller->deleteCity($DeleteId);
+  header("Refresh:0; url=CitiesView.php?countryId=$id"."&page=$page");
+}
+
 ?>
     <style>
       <?php include '../style.css'; ?>
@@ -46,7 +53,9 @@ else
                   <option value="descending">Sort descending by name</option>
                 </select>
                 <button name="sort" type="submit">Sort</button>
+                <label>From: </label>
                 <input type="date" name="start" value=<?php echo date("Y-m-d", strtotime("-1 week")); ?> />
+                <label>To :</label>
                 <input type="date" name="end" value=<?php echo date('Y-m-d') ?> />
                 <button name="byDate" type="submit">Find by Date</button>
                 <button name="showAll" type="submit">Show All</button>
@@ -68,7 +77,7 @@ else
       <td><?php echo $r['AreaSize']; ?></td>
       <td><?php echo $r['PostCode']; ?></td>
       <td><a href="CityEdit.php?edit=<?php echo $r['ID'] ?>"><button>Edit</button></a>
-      <a href="?countryId=<?php echo $id ?>&delete=<?php echo $r['ID'] ?>"><button>Delete</button></a></td>
+      <a href="?countryId=<?php echo $id ?>&delete=<?php echo $r['ID'] ?>&page=<?php echo $page ?>"><button>Delete</button></a></td>
     </tr>
     <?php endforeach; ?>
     </table>
@@ -82,11 +91,3 @@ else
     <a href="NewCity.php?countryId=<?php echo $id ?>"><button>Create New</button></a><br><br>
     <a href="CountriesView.php"><button>Back</button></a>
     </body>
-<?php
-if(isset($_GET['delete']))
-{
-  $DeleteId = $_GET['delete'];
-  $CitiesContoller->deleteCity($DeleteId);
-  header("Refresh:0; url=CitiesView.php?countryId=$id");
-}
-?>

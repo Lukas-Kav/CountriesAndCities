@@ -2,6 +2,26 @@
 
 class CitiesController extends Cities
 {
+  private function verify($DataArray)
+  {
+    if((in_array("", $DataArray)))
+    {
+      return "Don't leave empty fields";
+    }
+    elseif (!is_numeric($DataArray[1]))
+    {
+      return "Population must be a number";
+    }
+    elseif (!is_numeric($DataArray[2]))
+    {
+      return "Area size must be a number";
+    }
+    else
+    {
+      return True;
+    }
+  }
+
   function returnCitiesByCountry($CountryId, $SortType, $Page)
   {
     return $this->getCities($CountryId, $SortType, $Page);
@@ -24,27 +44,29 @@ class CitiesController extends Cities
 
   function addCity($DataArray)
   {
-    if(empty($DataArray[0]))
-    {
-      return "Don't leave empty fields";
-    }
-    else
+    $Message = $this->verify($DataArray);
+    if($Message === True)
     {
       $this->setCity($DataArray);
       return "Added";
+    }
+    else
+    {
+      return $Message;
     }
   }
 
   function renewCity($DataArray, $id)
   {
-    if(empty($DataArray[0]))
-    {
-      return "Don't leave empty fields";
-    }
-    else
+    $Message = $this->verify($DataArray);
+    if($Message === True)
     {
       $this->updateCity($DataArray, $id);
       return "Updated";
+    }
+    else
+    {
+      return $Message;
     }
   }
 
