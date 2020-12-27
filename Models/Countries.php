@@ -23,8 +23,15 @@ class Countries extends DB
     {
       $wh = " WHERE ID = $id";
     }
-    $startingPoint = ($page-1)*10;
-    $sql = "SELECT * FROM countries".$wh.$st." LIMIT ".$startingPoint.", 10";
+    if(!empty($page))
+    {
+      $startingPoint = ($page-1)*10;
+      $sql = "SELECT * FROM countries".$wh.$st." LIMIT ".$startingPoint.", 10";
+    }
+    else
+    {
+      $sql = "SELECT * FROM countries".$wh.$st;
+    }
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();

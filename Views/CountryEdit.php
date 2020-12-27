@@ -3,7 +3,7 @@
 include '../autoload.php';
 $CountriesContoller = new CountriesController();
 $id = $_GET['edit'];
-$results = $CountriesContoller->returnCountry($id, '')[0];
+$results = $CountriesContoller->returnCountry($id, '', '')[0];
 
  ?>
 <style>
