@@ -3,7 +3,7 @@
 class Countries extends DB
 {
 
-  protected function getCountries($id, $SortType)
+  protected function getCountries($id, $SortType, $page)
   {
     $st = "";
     if(!empty($SortType))
@@ -23,7 +23,8 @@ class Countries extends DB
     {
       $wh = " WHERE ID = $id";
     }
-    $sql = "SELECT * FROM countries".$wh.$st;
+    $startingPoint = ($page-1)*10;
+    $sql = "SELECT * FROM countries".$wh.$st." LIMIT ".$startingPoint.", 10";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
@@ -61,6 +62,15 @@ class Countries extends DB
     Population= '$dataArray[2]', PhoneCode= '$dataArray[3]', AddedOn= '$dataArray[4]' WHERE ID = $id";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
+  }
+
+  protected function countEntries()
+  {
+    $sql = "SELECT COUNT(*) as count FROM countries";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    return $results[0];
   }
 
   protected function removeCountry($id)

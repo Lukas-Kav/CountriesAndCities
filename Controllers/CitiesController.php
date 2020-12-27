@@ -2,9 +2,9 @@
 
 class CitiesController extends Cities
 {
-  function returnCitiesByCountry($CountryId, $SortType)
+  function returnCitiesByCountry($CountryId, $SortType, $Page)
   {
-    return $this->getCities($CountryId, $SortType);
+    return $this->getCities($CountryId, $SortType, $Page);
   }
 
   function returnCityByName($Name, $CountryId)
@@ -46,6 +46,12 @@ class CitiesController extends Cities
       $this->updateCity($DataArray, $id);
       return "Updated";
     }
+  }
+
+  function returnPages($CountryId){
+    $number_of_results = $this->countEntries($CountryId)['count'];
+    $number_of_pages = ceil($number_of_results/10);
+    return $number_of_pages;
   }
 
   function deleteCity($id)

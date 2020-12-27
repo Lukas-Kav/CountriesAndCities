@@ -29,9 +29,9 @@ class CountriesController extends Countries
     }
   }
 
-  function returnCountry($id, $SortType)
+  function returnCountry($id, $SortType, $Page)
   {
-    return $this->getCountries($id, $SortType);
+    return $this->getCountries($id, $SortType, $Page);
   }
 
   function returnCountryByName($Name)
@@ -42,6 +42,12 @@ class CountriesController extends Countries
   function returnCountryByDate($Start, $End)
   {
     return $this->getCountriesByDate($Start, $End);
+  }
+
+  function returnPages(){
+    $number_of_results = $this->countEntries()['count'];
+    $number_of_pages = ceil($number_of_results/10);
+    return $number_of_pages;
   }
 
   function deleteCountry($id)

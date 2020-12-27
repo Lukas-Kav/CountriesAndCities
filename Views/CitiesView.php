@@ -4,6 +4,12 @@ include '../autoload.php';
 
 $id = $_GET['countryId'];
 $CitiesContoller = new CitiesController();
+$NumberOfPages = $CitiesContoller->returnPages($id);
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
 if(isset($_POST['submit']) and !isset($_POST['showAll']))
 {
   $Name = $_POST['cityToFind'];
@@ -12,7 +18,7 @@ if(isset($_POST['submit']) and !isset($_POST['showAll']))
 elseif(isset($_POST['sort']))
 {
   $SortType = $_POST['sortingType'];
-  $results = $CitiesContoller->returnCitiesByCountry($id, $SortType);
+  $results = $CitiesContoller->returnCitiesByCountry($id, $SortType, $page);
 }
 elseif(isset($_POST['byDate']))
 {
@@ -22,7 +28,7 @@ elseif(isset($_POST['byDate']))
 }
 else
 {
-  $results = $CitiesContoller->returnCitiesByCountry($id, '');
+  $results = $CitiesContoller->returnCitiesByCountry($id, '', $page);
 }
 
 ?>
@@ -46,6 +52,7 @@ else
                 <button name="showAll" type="submit">Show All</button>
             </div>
     </form>
+    <?php if(count($results)>0){ ?>
     <table>
       <tr>
         <th style="text-align:left">Name</th>
@@ -65,7 +72,13 @@ else
     </tr>
     <?php endforeach; ?>
     </table>
-    <br><br>
+    <?php }else{ echo "No Entries Found";} ?>
+    <br>
+    <div style="text-align:center; display:block;">
+    <?php for ($page=1;$page<=$NumberOfPages;$page++) { ?>
+    <a href="CitiesView.php?countryId=<?php echo $id ?>&page=<?php echo $page ?>"><?php echo $page ?></a>
+    <?php } ?>
+    </div>
     <a href="NewCity.php?countryId=<?php echo $id ?>"><button>Create New</button></a><br><br>
     <a href="CountriesView.php"><button>Back</button></a>
     </body>

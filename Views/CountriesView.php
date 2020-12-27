@@ -3,6 +3,13 @@
 include '../autoload.php';
 
 $CountriesContoller = new CountriesController();
+$NumberOfPages = $CountriesContoller->returnPages();
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
 if(isset($_POST['submit']) and !isset($_POST['showAll']))
 {
   $Name = $_POST['countryToFind'];
@@ -11,7 +18,7 @@ if(isset($_POST['submit']) and !isset($_POST['showAll']))
 elseif(isset($_POST['sort']))
 {
   $SortType = $_POST['sortingType'];
-  $results = $CountriesContoller->returnCountry('', $SortType);
+  $results = $CountriesContoller->returnCountry('', $SortType, $page);
 }
 elseif(isset($_POST['byDate']))
 {
@@ -21,7 +28,7 @@ elseif(isset($_POST['byDate']))
 }
 else
 {
-  $results = $CountriesContoller->returnCountry('', '');
+  $results = $CountriesContoller->returnCountry('', '', $page);
 }
 
 ?>
@@ -45,6 +52,7 @@ else
                 <button name="showAll" type="submit">Show All</button>
             </div>
     </form>
+    <?php if(count($results)>0){ ?>
     <table>
       <tr>
         <th>Name</th>
@@ -64,6 +72,14 @@ else
     </tr>
     <?php endforeach; ?>
     </table>
+    <?php } else{ echo "No Entries Found";} ?>
+    <br>
+    <div style="text-align:center; display:block;">
+    <?php for ($page=1;$page<=$NumberOfPages;$page++) { ?>
+    <a href="CountriesView.php?page=<?php echo $page ?>"><?php echo $page ?></a>
+    <?php } ?>
+    </div>
+    <br>
     <a href="NewCountry.php"><button>Create New</button></a>
     </body>
 

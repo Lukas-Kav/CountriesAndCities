@@ -3,7 +3,7 @@
 class Cities extends DB
 {
 
-  protected function getCities($CountryId, $SortType)
+  protected function getCities($CountryId, $SortType, $page)
   {
     $st = "";
     if(!empty($SortType))
@@ -18,7 +18,8 @@ class Cities extends DB
         $st = " ORDER BY Name DESC";
       }
     }
-    $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st;
+    $startingPoint = ($page-1)*10;
+    $sql = "SELECT * FROM cities WHERE CountryID = $CountryId".$st." LIMIT ".$startingPoint.", 10";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
@@ -65,6 +66,15 @@ class Cities extends DB
     PostCode = '$dataArray[3]', AddedOn = '$dataArray[4]' WHERE ID = $id";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
+  }
+
+  protected function countEntries($CountryId)
+  {
+    $sql = "SELECT COUNT(*) as count FROM cities WHERE CountryID = '$CountryId'";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    return $results[0];
   }
 
   protected function removeCity($id)
