@@ -84,8 +84,14 @@ if(isset($_GET['delete']))
     <?php } else{ echo "No Entries Found";} ?>
     <br>
     <div style="text-align:center; display:block;">
-    <?php for ($page=1;$page<=$NumberOfPages;$page++) { ?>
-    <a href="CountriesView.php?page=<?php echo $page ?>"><?php echo $page ?></a>
+    <?php if($page > 1){ ?>
+    <a href="CountriesView.php?page=<?php echo ($page-1) ?>">Previous &#60&#60; </a>
+    <?php } ?>
+    <?php for ($i=1;$i<=$NumberOfPages;$i++) { ?>
+    <a href="CountriesView.php?page=<?php echo $i ?>"><?php echo $i ?></a>
+    <?php } ?>
+    <?php if($page < $NumberOfPages){ ?>
+    <a href="CountriesView.php?page=<?php echo ($page+1) ?>"> &#62&#62; Next</a>
     <?php } ?>
     </div>
     <br>
